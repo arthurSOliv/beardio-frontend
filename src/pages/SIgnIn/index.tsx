@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -59,7 +59,7 @@ const SignIn: React.FC = () => {
             });
         }
         },
-        [signIn],
+        [signIn, addToast],
       );
 
     return (
