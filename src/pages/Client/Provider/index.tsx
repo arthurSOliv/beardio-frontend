@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { isToday, format, parseISO, isAfter } from 'date-fns';
+import { isToday, format } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
-import { FiPower, FiClock, FiUser } from 'react-icons/fi';
+import { FiPower, FiUser } from 'react-icons/fi';
 
 import { Link, useParams } from 'react-router-dom';
 
@@ -68,16 +68,11 @@ const Provider: React.FC = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availability, setAvailability] = useState<IAvailabilityItem[]>([]);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState<number>();
   const [provider, setProvider] = useState<IProvider>();
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available && !modifiers.disabled) setSelectedDate(day);
-  }, []);
-
-  const handleMonthChange = useCallback((month: Date) => {
-    setCurrentMonth(month);
   }, []);
 
   useEffect(() => {
@@ -100,7 +95,7 @@ const Provider: React.FC = () => {
       .then(({ data }:any) => {
         setProvider(data);
       });
-  }, [selectedDate]);
+  }, [selectedDate, id]);
 
   const selectedDateAsText = useMemo(() => {
     return format(selectedDate, "'Dia' dd 'de' MMMM", {
@@ -163,7 +158,7 @@ const Provider: React.FC = () => {
           });
       }
     }
-  }, [selectedDate, selectedHour]);
+  }, [selectedDate, selectedHour, addToast, provider]);
 
   return (
     <Container>
@@ -284,7 +279,6 @@ const Provider: React.FC = () => {
             modifiers={{
               available: { daysOfWeek: [1, 2, 3, 4, 5] },
             }}
-            onMonthChange={handleMonthChange}
             selectedDays={selectedDate}
             onDayClick={handleDateChange}
             months={[
