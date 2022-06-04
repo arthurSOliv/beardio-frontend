@@ -27,7 +27,7 @@ import api from '../../../services/api';
 import logo from '../../../assets/logo.svg';
 import { useAuth } from '../../../hooks/auth';
 
-interface Appointment {
+interface IAppointment {
   id: string;
   date: string;
   hourFormatted: string;
@@ -44,7 +44,7 @@ const ProviderDashboard: React.FC = () => {
   const { addToast } = useToast();
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<IAppointment[]>([]);
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available && !modifiers.disabled) setSelectedDate(day);
@@ -107,7 +107,7 @@ const ProviderDashboard: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<Appointment[]>('providers/me', {
+      .get<IAppointment[]>('providers/me', {
         params: {
           year: selectedDate.getFullYear(),
           month: selectedDate.getMonth() + 1,

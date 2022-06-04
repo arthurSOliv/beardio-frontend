@@ -8,8 +8,6 @@ import Route from './Route';
 
 import SignIn from '../pages/SIgnIn';
 import SignUp from '../pages/SignUp';
-// import ForgotPassword from '../pages/ForgotPassword';
-// import ResetPassword from '../pages/ResetPassword';
 
 import ClientDashboard from '../pages/Client/Dashboard';
 import ClientProfile from '../pages/Client/Profile';
@@ -19,9 +17,6 @@ import ProviderDashboard from '../pages/Provider/Dashboard';
 import ForgotPassword from '../pages/ForgotPassoword';
 import ResetPassword from '../pages/ResetPassword';
 import ProviderProfile from '../pages/Provider/Profile';
-// import Profile from '../pages/Profile';
-
-import { useAuth } from '../hooks/auth';
 
 const Routes: React.FC = () => {
   return (

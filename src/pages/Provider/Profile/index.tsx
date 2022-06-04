@@ -3,7 +3,7 @@ import { FiMail, FiUser, FiLock, FiCamera, FiArrowLeft } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useToast } from '../../../hooks/toast';
 import { useAuth } from '../../../hooks/auth';
 
@@ -25,7 +25,6 @@ interface ProfileFormData {
 }
 
 const ProviderProfile: React.FC = () => {
-  const history = useHistory();
   const { addToast } = useToast();
   const { user, updateUser } = useAuth();
   const formRef = useRef<FormHandles>(null);
@@ -97,7 +96,7 @@ const ProviderProfile: React.FC = () => {
         });
       }
     },
-    [history, updateUser, addToast],
+    [updateUser, addToast],
   );
 
   const handleAvatarChange = useCallback(
