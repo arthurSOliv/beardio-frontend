@@ -3,9 +3,12 @@ import api from '../services/api';
 
 interface User {
   id: string;
+  user_id: string;
   name: string;
+  cpf?: string;
+  cnpj?: string;
   email: string;
-  avatar_url: string;
+  avatar: string;
 }
 
 interface AuthState {
@@ -33,6 +36,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const user = localStorage.getItem('@GoBarber:user');
 
     if (token && user) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
     }
 
@@ -58,6 +62,20 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const updateUser = useCallback(
     (user: User) => {
+      const oldUser = localStorage.getItem('@GoBarber:user');
+
+      if(oldUser) {
+        const formOldUser = JSON.parse(oldUser);
+
+        if(formOldUser.cpf) {
+          user.cpf = formOldUser.cpf;
+        }
+
+        if(formOldUser.cnpj) {
+          user.cnpj = formOldUser.cnpj;
+        }
+      }
+
       localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
       setData({

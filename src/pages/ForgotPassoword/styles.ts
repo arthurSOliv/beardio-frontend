@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
-import loginBack from '../../assets/loginBack.png';
+import backgroundImage from '../../assets/loginBack.png';
 
 const appearFromLeft = keyframes`
 from {
@@ -71,6 +71,6 @@ export const AnimationContainer = styled.div`
 
 export const Background = styled.div`
   flex: 1;
-  background: url(${loginBack}) no-repeat center;
+  background: url(${backgroundImage}) no-repeat center;
   background-size: cover;
 `;

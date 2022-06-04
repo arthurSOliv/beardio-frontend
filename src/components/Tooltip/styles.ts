@@ -4,7 +4,7 @@ export const Container = styled.div`
   position: relative;
   span {
     width: 160px;
-    background: #ff9000;
+    background: #A8BCDA;
     padding: 8px;
     border-radius: 4px;
     font-size: 14px;
@@ -21,7 +21,7 @@ export const Container = styled.div`
       content: '';
       top: 100%;
       border-style: solid;
-      border-color: #ff9000 transparent;
+      border-color: #A8BCDA transparent;
       border-width: 6px 6px 0 6px;
       bottom: 20px;
       position: absolute;

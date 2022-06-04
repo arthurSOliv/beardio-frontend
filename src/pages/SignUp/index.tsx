@@ -45,8 +45,6 @@ const SignUp: React.FC = () => {
                 password: Yup.string().min(6, 'Senha deve conter no mínimo 6 dígitos.'),
             })
 
-            debugger;
-
             await schema.validate(data, {
                 abortEarly: false,
             });

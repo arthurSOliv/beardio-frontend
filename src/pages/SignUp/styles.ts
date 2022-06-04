@@ -42,7 +42,7 @@ export const AnimationContainer = styled.div`
   align-items: center;
   animation: ${appearFromRight} 1s;
   form {
-    margin: 80px 0;
+    margin: 20px 0;
     width: 340px;
     text-align: center;
     h1 {
