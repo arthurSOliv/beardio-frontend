@@ -27,7 +27,7 @@ import api from '../../../services/api';
 import logo from '../../../assets/logo.svg';
 import { useAuth } from '../../../hooks/auth';
 
-interface Appointment {
+interface IAppointment {
   id: string;
   date: string;
   hourFormatted: string;
@@ -44,15 +44,10 @@ const ClientDashboard: React.FC = () => {
   const { addToast } = useToast();
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<IAppointment[]>([]);
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available && !modifiers.disabled) setSelectedDate(day);
-  }, []);
-
-  const handleMonthChange = useCallback((month: Date) => {
-    setCurrentMonth(month);
   }, []);
 
   const changeStatus = useCallback(async (appointment_id: string) => {
@@ -108,11 +103,11 @@ const ClientDashboard: React.FC = () => {
           'Não foi possível atualizar as informações, por favor tente novamente.',
       });
     }
-  }, [addToast]);
+  }, [addToast, appointments]);
 
   useEffect(() => {
     api
-      .get<Appointment[]>('providers/me', {
+      .get<IAppointment[]>('providers/me', {
         params: {
           year: selectedDate.getFullYear(),
           month: selectedDate.getMonth() + 1,
@@ -239,12 +234,12 @@ const ClientDashboard: React.FC = () => {
 
                   {!appointment.status ? (
                     <>
-                      <a type="button" style={{cursor: 'pointer'}} onClick={() => deleteAppointment(appointment.id)}>
+                      <button type="button" style={{cursor: 'pointer', backgroundColor: 'transparent'}} onClick={() => deleteAppointment(appointment.id)}>
                         <FiDelete style={{color: 'red', fontSize: 30, marginRight: 30}} />
-                      </a>
-                      <a type="button" style={{cursor: 'pointer'}} onClick={() => changeStatus(appointment.id)}>
+                      </button>
+                      <button type="button" style={{cursor: 'pointer'}} onClick={() => changeStatus(appointment.id)}>
                         <FiCheck style={{color: '#40FF30', fontSize: 30}} />
-                      </a>
+                      </button>
                     </>
                   )
                   : (
@@ -280,12 +275,12 @@ const ClientDashboard: React.FC = () => {
 
                   {!appointment.status ? (
                     <>
-                      <a type="button" style={{cursor: 'pointer'}} onClick={() => deleteAppointment(appointment.id)}>
+                      <button type="button" style={{cursor: 'pointer', backgroundColor: 'transparent'}} onClick={() => deleteAppointment(appointment.id)}>
                         <FiDelete style={{color: 'red', fontSize: 30, marginRight: 30}} />
-                      </a>
-                      <a type="button" style={{cursor: 'pointer'}} onClick={() => changeStatus(appointment.id)}>
+                      </button>
+                      <button type="button" style={{cursor: 'pointer'}} onClick={() => changeStatus(appointment.id)}>
                         <FiCheck style={{color: '#40FF30', fontSize: 30}} />
-                      </a>
+                      </button>
                     </>
                   )
                   : (
@@ -305,7 +300,6 @@ const ClientDashboard: React.FC = () => {
             modifiers={{
               available: { daysOfWeek: [1, 2, 3, 4, 5] },
             }}
-            onMonthChange={handleMonthChange}
             selectedDays={selectedDate}
             onDayClick={handleDateChange}
             months={[
